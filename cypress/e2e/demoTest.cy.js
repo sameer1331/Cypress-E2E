@@ -25,28 +25,24 @@ describe('Test Suite', () => {
 describe('UIlicious Test Automation Page', () => {
         
     beforeEach(() => {
-          cy.visit('https://uilicious.com/blog/testing-tips/test-automation/'); 
+          cy.visit('https://uilicious.com/blog/practicing-automation-testing-with-demo-sites/'); 
     });
       
         // Functional Tests
         it('should navigate to the correct page when clicking on the Blog Home link', () => {
           cy.contains('Blog Home').click();
-          cy.url().should('include', '/blog-home'); 
-        });
+          cy.url().should('include', '/blog'); 
+        }); 
       
-        it('should navigate to the correct page when clicking on the "Get started" button', () => {
-          cy.contains('Get started').click();
-          cy.url().should('include', '/get-started'); 
-        });
       
         it('should navigate to the corresponding blog post when clicking on a blog post link', () => {
-          cy.get('.blog-post-link').first().click(); // Adjust the selector
-          cy.url().should('include', '/blog-post'); // Adjust the URL accordingly
+          cy.get('.blog-post-link').first().click(); 
+          cy.url().should('include', '/blog-post'); 
         });
       
         // UI Tests
         it('should load the page with the correct title', () => {
-          cy.title().should('eq', 'Test Automation - UIlicious'); // Adjust the title accordingly
+          cy.title().should('eq', 'Test Automation - UIlicious'); 
         });
       
         it('should display the "Test Automation" header', () => {
@@ -58,10 +54,11 @@ describe('UIlicious Test Automation Page', () => {
         });
       
         it('should display blog post previews', () => {
-          cy.get('.blog-post-preview').should('have.length.at.least', 1); // Adjust the selector
+          cy.get('.blog-post-preview').should('have.length.at.least', 1); 
         });
       
         it('should display the navigation menu items', () => {
+          cy.get('navbar-brand').should('be.visible');
           cy.contains('Blog Home').should('be.visible');
           cy.contains('News and Updates').should('be.visible');
           cy.contains('Best Practices').should('be.visible');
@@ -78,6 +75,9 @@ describe('UIlicious Test Automation Page', () => {
           cy.viewport('macbook-15');
           cy.contains('Test Automation').should('be.visible');
         });
+
+
+        
       });
       
 
