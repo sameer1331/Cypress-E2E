@@ -1,3 +1,4 @@
+import { expect } from 'chai';
 import LoginPage from '../PageObjects/LoginPage.js';
 
 describe('Login with POM', () => {
@@ -7,11 +8,20 @@ describe('Login with POM', () => {
 
           const login = new LoginPage();
           login.setusername(data.username)
-          login.setPassword(data.password)
           login.clickSubmit()
+          login.setPassword(data.password)
           login.clickLogin()
-          cy.url().should('include',data.expected)
+          cy.url().should('eq','https://studio.uilicious.com/space')
           
+          //using explicit assertions
+          let expName = "john wick"
+          cy.get('.app-nav-dropdown-item app-nav-dropdown-item--link').then((x)=>{
+            let actName=x.text()
+
+            expect(actName).to.equal(expName)
+          })
+          //using implicit assertions
+          cy.get('.app-nav-dropdown-item app-nav-dropdown-item--link').contains('john wick')
       })
 
     }) 
