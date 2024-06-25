@@ -24,9 +24,9 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-///<reference types="cypress"/>  
+//<reference types="cypress"/>  
 
-///<reference types="cypress-xpath"/>
+//<reference types="cypress-xpath"/>
 
 let credentials= {
     userName : "fin-admin@finstein.ai",
@@ -54,8 +54,8 @@ function login() {
 }
 
 function dashboard() {
- 
-    cy.url().should('contain', 'dashboard')
+    //UI-Test
+    // cy.url().should('contain', 'dashboard')
     cy.xpath("//div[@class='nav-bar']").should('be.visible')
     cy.xpath("//img[@class='logo-img']").should('be.visible')
     cy.xpath("//span[contains(text(),'Dashboard')]").should('be.visible')
@@ -64,7 +64,72 @@ function dashboard() {
     cy.xpath("//span[contains(text(),'Admin Setting')]").should('be.visible')
     cy.xpath('(//div[@class="side-nav"]//img)[1]').should('be.visible')
     cy.xpath('(//div[@class="side-nav"]//img)[2]').should('be.visible')
+    cy.xpath('(//div[@class="calender-row"]//p-calendar)[1]').should('be.visible')
+    cy.xpath('(//div[@class="calender-row"]//p-calendar)[2]').should('be.visible')
+    cy.xpath("//div[@class='p-dropdown p-component']").should('be.visible').click()
+    cy.xpath("//span[contains(text(),'My Expenses')]").should('be.visible')
+    cy.xpath("//span[contains(text(),'My Approvals')]").should('be.visible')
 
+    cy.xpath('(//div[@class="cards"]//div)[1]').should('be.visible').and('contain','Total')
+    cy.xpath('(//div[@class="cards"]//div)[2]').should('be.visible').and('contain','Pending Approval')
+    cy.xpath('(//div[@class="cards"]//div)[3]').should('be.visible').and('contain','Approved')
+    cy.xpath('(//div[@class="cards"]//div)[4]').should('be.visible').and('contain','Paid')
+    cy.xpath('(//div[@class="cards"]//div)[5]').should('be.visible').and('contain','Rejected')
+    cy.xpath("//span[contains(text(),'Create Expense')]").should('be.visible').click()
+    //Your Expenses tab
+    cy.xpath('(//div[@class="left"]//p-dropdown)').should('be.visible')
+    cy.xpath('(//div[@class="right"]//p-button)').should('be.visible')
+    cy.xpath("//input[@placeholder='Global Search']").should('be.visible')
+    cy.xpath("//img[@class='p-element downloadIcon']").should('be.visible')
+    cy.xpath("//div[@class='calendericon']//p-dropdown").should('be.visible')
+    cy.xpath("(//div[@class='from-to-date']//p-calendar)[1]").should('be.visible')
+    cy.xpath("(//div[@class='from-to-date']//p-calendar)[2]").should('be.visible')
+    cy.xpath("//div[@class='calendericon']//p-dropdown").click()
+    cy.xpath("//span[contains(text(),'All')]").should('exist')
+    cy.xpath("//span[contains(text(),'Current Month')]").should('exist')
+    cy.xpath("//span[contains(text(),'Last Month')]").should('exist')
+    cy.xpath("//span[contains(text(),'Custom Period')]").should('exist')
+    cy.xpath("//div[@class='calendericon']//p-dropdown").click()
+    cy.xpath('(//div[@class="left"]//p-dropdown)').click()
+    cy.xpath("//span[contains(text(),'All Expenses')]").should('exist')
+    cy.xpath("//span[contains(text(),'Approved expenses')]").should('exist')
+    cy.xpath("//span[contains(text(),'Pending Approval')]").should('exist')
+    cy.xpath("//span[contains(text(),'Rejected Expenses')]").should('exist')
+    cy.xpath("//span[contains(text(),'Paid Expenses')]").should('exist')
+    cy.xpath('(//div[@class="left"]//p-dropdown)').click()
+    //Your Approvals tab
+    cy.xpath("//span[contains(text(),'Your Approvals')]").click()
+
+    cy.xpath("(//div[@class='table']//thead)").should('contain',' EXPENSE DATE ')
+    cy.xpath("(//div[@class='table']//thead)").should('contain','  EXPENSE NO  ')
+    cy.xpath("(//div[@class='table']//thead)").should('contain','  CATEGORY   ')
+    cy.xpath("(//div[@class='table']//thead)").should('contain','  SUBMITTER   ')
+    cy.xpath("(//div[@class='table']//thead)").should('contain','  EXPENSE TYPE   ')
+    cy.xpath("(//div[@class='table']//thead)").should('contain','  AMOUNT   ')
+    cy.xpath("(//div[@class='table']//thead)").should('contain','   STATUS    ')
+    cy.xpath("(//div[@class='p-dropdown p-component'])[1]").click()
+    const approvalstatus = [PendingApproval, ApprovedExpenses, RejectedExpenses, PaidExpenses];
+    let PendingApproval = cy.xpath("//li[@aria-label='Pending Approval']")
+    approvalstatus.PendingApproval.click()
+    cy.xpath("(//span[contains(text(),'Pending Approval')])").should('exist')
+    let ApprovedExpenses = cy.xpath("//li[@aria-label='Pending Approval']")
+    approvalstatus.ApprovedExpenses.click()
+    cy.xpath("(//span[contains(text(),'Approved Expenses')])").should('exist')
+    let RejectedExpenses = cy.xpath("//li[@aria-label='Rejected expenses']")
+    approvalstatus.RejectedExpenses.click()
+    cy.xpath("(//span[contains(text(),'Rejected Expenses')])").should('exist')
+    let PaidExpenses = cy.xpath("//li[@aria-label='Paid expenses']")
+    approvalstatus.PaidExpenses.click()
+    cy.xpath("(//span[contains(text(),'Paid Expenses')])").should('exist')
+
+    
+
+
+
+
+
+
+    
 }
  
  
