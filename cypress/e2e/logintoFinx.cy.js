@@ -3,6 +3,7 @@ describe('Login Page', () => {
         
          cy.login();
          cy.dashboard();
+         cy.addNewExpense();
 
     })
 
